@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Portfolio</title>
+    <title>Liantsoa Fanantenana RAKOTONANAHARY - Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         * {
@@ -502,6 +502,83 @@
                 box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
             }
         }
+
+        .skill-category {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .skill-category h3 {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .skill-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .project-tags span {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .loading-projects {
+            text-align: center;
+            padding: 2rem;
+            width: 100%;
+            color: var(--text-color);
+        }
+
+        .loading-projects i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .project-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .project-language {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .language-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
     </style>
 </head>
 
@@ -527,32 +604,60 @@
     <section id="home" class="hero">
         <div class="hero-content">
             <img src="assets/img/profile.jpg" alt="Profile Photo" class="profile-photo">
-            <h1>Hi, I'm John Doe</h1>
-            <p>Full Stack Developer & UI/UX Designer</p>
+            <h1>Hi, I'm Liantsoa Fanantenana</h1>
+            <p>Digital Craftsman (Developer/Problem Solver)</p>
+            <p class="subtitle">Full-stack developer from Madagascar</p>
             <button class="cta-button">Download Resume</button>
         </div>
     </section>
 
     <section id="about">
-        <h2 class="section-title">About Me</h2>
+        <h2 class="section-title">Tech Stack</h2>
         <div class="skills-container">
-            <div class="skill-item">JavaScript</div>
-            <div class="skill-item">React</div>
-            <div class="skill-item">Node.js</div>
-            <div class="skill-item">Python</div>
-            <div class="skill-item">UI/UX Design</div>
+            <!-- Languages -->
+            <div class="skill-category">
+                <h3>Languages</h3>
+                <div class="skill-items">
+                    <div class="skill-item">Java</div>
+                    <div class="skill-item">JavaScript</div>
+                    <div class="skill-item">Python</div>
+                    <div class="skill-item">PHP</div>
+                    <div class="skill-item">Perl</div>
+                    <div class="skill-item">C#</div>
+                </div>
+            </div>
+            <!-- Frameworks -->
+            <div class="skill-category">
+                <h3>Frameworks</h3>
+                <div class="skill-items">
+                    <div class="skill-item">Spring Boot</div>
+                    <div class="skill-item">Symfony</div>
+                    <div class="skill-item">React</div>
+                    <div class="skill-item">Vue.js</div>
+                    <div class="skill-item">Angular</div>
+                    <div class="skill-item">.NET</div>
+                </div>
+            </div>
+            <!-- Databases -->
+            <div class="skill-category">
+                <h3>Databases</h3>
+                <div class="skill-items">
+                    <div class="skill-item">MySQL</div>
+                    <div class="skill-item">Oracle</div>
+                    <div class="skill-item">MongoDB</div>
+                    <div class="skill-item">PostgreSQL</div>
+                </div>
+            </div>
         </div>
     </section>
 
     <section id="projects">
-        <h2 class="section-title">My Projects</h2>
-        <div class="projects-grid">
-            <div class="project-card" data-modal="modal1">
-                <div class="project-image"></div>
-                <div class="project-info">
-                    <h3>E-commerce Platform</h3>
-                    <p>Full-stack e-commerce solution with React and Node.js</p>
-                </div>
+        <h2 class="section-title">Featured Projects</h2>
+        <div id="github-projects" class="projects-grid">
+            <!-- Les projets seront chargés dynamiquement ici -->
+            <div class="loading-projects">
+                <i class="fas fa-spinner fa-spin"></i>
+                Loading projects...
             </div>
         </div>
     </section>
@@ -581,7 +686,7 @@
     </section>
 
     <section id="contact">
-        <h2 class="section-title">Contact Me</h2>
+        <h2 class="section-title">Let's Connect!</h2>
         <form class="contact-form">
             <div class="form-group">
                 <input type="text" placeholder="Name">
@@ -595,9 +700,10 @@
             <button class="cta-button">Send Message</button>
         </form>
         <div class="social-icons">
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="mailto:rakotonanaharyliantsoafan@gmail.com"><i class="fas fa-envelope"></i></a>
+            <a href="https://linkedin.com/in/liantsoa-fanantenana-rakotonanahary-782775345"><i class="fab fa-linkedin"></i></a>
+            <a href="https://twitter.com/LiantsoaFanant2"><i class="fab fa-twitter"></i></a>
+            <a href="https://github.com/Liantsoa123"><i class="fab fa-github"></i></a>
         </div>
     </section>
 
@@ -723,6 +829,78 @@
                 document.body.style.overflow = 'auto';
             }
         });
+
+        // GitHub Projects Loader
+        async function loadGitHubProjects() {
+            try {
+                const username = 'Liantsoa123';
+                const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`);
+                const repos = await response.json();
+
+                const projectsContainer = document.getElementById('github-projects');
+                projectsContainer.innerHTML = ''; // Clear loading message
+
+                repos.forEach(repo => {
+                    if (!repo.fork) { // Exclure les forks
+                        const card = document.createElement('div');
+                        card.className = 'project-card';
+                        
+                        const languageColor = getLanguageColor(repo.language);
+                        
+                        card.innerHTML = `
+                            <div class="project-info">
+                                <h3>${repo.name}</h3>
+                                <p>${repo.description || 'No description available'}</p>
+                                <div class="project-language">
+                                    ${repo.language ? `
+                                        <span class="language-dot" style="background-color: ${languageColor}"></span>
+                                        <span>${repo.language}</span>
+                                    ` : ''}
+                                </div>
+                                <div class="project-stats">
+                                    <span><i class="fas fa-star"></i> ${repo.stargazers_count}</span>
+                                    <span><i class="fas fa-code-branch"></i> ${repo.forks_count}</span>
+                                </div>
+                                <div class="project-tags">
+                                    <a href="${repo.html_url}" target="_blank" class="cta-button">View Project</a>
+                                </div>
+                            </div>
+                        `;
+
+                        card.addEventListener('click', () => {
+                            window.open(repo.html_url, '_blank');
+                        });
+
+                        projectsContainer.appendChild(card);
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading GitHub projects:', error);
+                document.getElementById('github-projects').innerHTML = `
+                    <div class="error-message">
+                        <p>Unable to load projects. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Couleurs pour les langages de programmation
+        function getLanguageColor(language) {
+            const colors = {
+                JavaScript: '#f1e05a',
+                Python: '#3572A5',
+                Java: '#b07219',
+                PHP: '#4F5D95',
+                'C#': '#178600',
+                HTML: '#e34c26',
+                CSS: '#563d7c',
+                TypeScript: '#2b7489'
+            };
+            return colors[language] || '#666';
+        }
+
+        // Charger les projets au chargement de la page
+        window.addEventListener('load', loadGitHubProjects);
     </script>
 </body>
 
