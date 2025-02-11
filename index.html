@@ -178,9 +178,12 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
             cursor: pointer;
-            height: 250px; /* Hauteur fixe */
-            display: flex; /* Pour permettre au contenu de s'adapter */
-            flex-direction: column; /* Empile les éléments verticalement */
+            height: 250px;
+            /* Hauteur fixe */
+            display: flex;
+            /* Pour permettre au contenu de s'adapter */
+            flex-direction: column;
+            /* Empile les éléments verticalement */
         }
 
         .project-card:hover {
@@ -196,12 +199,14 @@
         .project-info {
             padding: 1.5rem;
             color: var(--text-color);
-            height: 100%; /* Prend toute la hauteur disponible */
+            height: 100%;
+            /* Prend toute la hauteur disponible */
             display: flex;
             flex-direction: column;
-            justify-content: space-between; /* Répartit l'espace verticalement */
+            justify-content: space-between;
+            /* Répartit l'espace verticalement */
         }
-        
+
         .project-info h3 {
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
@@ -211,7 +216,7 @@
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
-        
+
         .project-info p {
             /* Limiter à 3 lignes pour la description */
             display: -webkit-box;
@@ -221,6 +226,7 @@
             font-size: 0.9rem;
             margin-bottom: 1rem;
         }
+
         /* Modal */
         .modal {
             display: none;
@@ -451,7 +457,9 @@
                 height: 150px;
             }
 
-            .projects-grid, .blog-grid, .testimonials-grid {
+            .projects-grid,
+            .blog-grid,
+            .testimonials-grid {
                 grid-template-columns: 1fr;
                 padding: 0 1rem;
             }
@@ -493,7 +501,8 @@
             }
 
             .nav-links {
-                display: flex; /* Changé de 'none' à 'flex' */
+                display: flex;
+                /* Changé de 'none' à 'flex' */
                 position: fixed;
                 top: 0;
                 right: -100%;
@@ -689,21 +698,21 @@
         </div>
     </section>
 
-    
+
 
     <section id="contact">
         <h2 class="section-title">Let's Connect!</h2>
-        <form class="contact-form">
+        <form class="contact-form" id="contact-form">
             <div class="form-group">
-                <input type="text" placeholder="Name">
+                <input type="text" id="name" placeholder="Name" required>
             </div>
             <div class="form-group">
-                <input type="email" placeholder="Email">
+                <input type="email" id="email" placeholder="Email" required>
             </div>
             <div class="form-group">
-                <textarea rows="5" placeholder="Message"></textarea>
+                <textarea id="message" rows="5" placeholder="Message" required></textarea>
             </div>
-            <button class="cta-button">Send Message</button>
+            <button type="submit" class="cta-button">Send Message</button>
         </form>
         <div class="social-icons">
             <a href="mailto:rakotonanaharyliantsoafan@gmail.com"><i class="fas fa-envelope"></i></a>
@@ -794,18 +803,6 @@
             observer.observe(el);
         });
 
-        // Form submission
-        document.querySelector('.contact-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            alert('Thank you for your message!');
-            this.reset();
-        });
-
-        // Download resume
-        document.querySelector('.cta-button').addEventListener('click', () => {
-            // Add resume download logic here
-            alert('Downloading resume...');
-        });
 
         // Mobile menu functionality
         const hamburger = document.querySelector('.hamburger');
@@ -850,9 +847,9 @@
                     if (!repo.fork) { // Exclure les forks
                         const card = document.createElement('div');
                         card.className = 'project-card';
-                        
+
                         const languageColor = getLanguageColor(repo.language);
-                        
+
                         card.innerHTML = `
                             <div class="project-info">
                                 <h3>${repo.name}</h3>
@@ -904,6 +901,54 @@
             };
             return colors[language] || '#666';
         }
+
+
+        
+        // Initialize EmailJS
+    emailjs.init("bQiL2UmZaYkjKeZMd");
+
+    // Handle contact form submission
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Get the submit button
+        const submitButton = this.querySelector('button[type="submit"]');
+        const originalText = submitButton.textContent;
+        
+        // Disable button and show loading state
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+
+        // Get form values
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        // Prepare template parameters
+        const templateParams = {
+            from_name: name,
+            from_email: email,
+            message: message,
+            to_name: 'Liantsoa Fanantenana'
+        };
+
+        // Send email
+        emailjs.send('service_h6w8lfk', 'template_uw8kzlh', templateParams)
+            .then(function() {
+                alert('Message sent successfully!');
+                document.getElementById('contact-form').reset();
+            })
+            .catch(function(error) {
+                console.error('Failed to send message:', error);
+                alert('Failed to send message. Please try again later.');
+            })
+            .finally(function() {
+                // Restore button state
+                submitButton.disabled = false;
+                submitButton.textContent = originalText;
+            });
+    });
+
 
         // Charger les projets au chargement de la page
         window.addEventListener('load', loadGitHubProjects);
