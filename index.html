@@ -177,6 +177,9 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
             cursor: pointer;
+            height: 250px; /* Hauteur fixe */
+            display: flex; /* Pour permettre au contenu de s'adapter */
+            flex-direction: column; /* Empile les éléments verticalement */
         }
 
         .project-card:hover {
@@ -192,8 +195,31 @@
         .project-info {
             padding: 1.5rem;
             color: var(--text-color);
+            height: 100%; /* Prend toute la hauteur disponible */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Répartit l'espace verticalement */
         }
-
+        
+        .project-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            /* Limiter à 2 lignes pour le titre */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .project-info p {
+            /* Limiter à 3 lignes pour la description */
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
         /* Modal */
         .modal {
             display: none;
@@ -662,28 +688,7 @@
         </div>
     </section>
 
-    <section id="blog">
-        <h2 class="section-title">Blog</h2>
-        <div class="blog-grid">
-            <div class="blog-card">
-                <div class="blog-image"></div>
-                <div class="blog-info">
-                    <h3>Blog Title</h3>
-                    <p>Short description of the blog post.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="testimonials">
-        <h2 class="section-title">Testimonials</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <p>"John is an amazing developer with great attention to detail."</p>
-                <p>- Client Name</p>
-            </div>
-        </div>
-    </section>
+    
 
     <section id="contact">
         <h2 class="section-title">Let's Connect!</h2>
@@ -834,7 +839,7 @@
         async function loadGitHubProjects() {
             try {
                 const username = 'Liantsoa123';
-                const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=6`);
+                const response = await fetch(`https://api.github.com/users/${username}/repos?sort=updated`);
                 const repos = await response.json();
 
                 const projectsContainer = document.getElementById('github-projects');
