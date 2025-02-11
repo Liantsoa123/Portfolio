@@ -690,15 +690,12 @@
     <section id="projects">
         <h2 class="section-title">Featured Projects</h2>
         <div id="github-projects" class="projects-grid">
-            <!-- Les projets seront chargés dynamiquement ici -->
             <div class="loading-projects">
                 <i class="fas fa-spinner fa-spin"></i>
                 Loading projects...
             </div>
         </div>
     </section>
-
-
 
     <section id="contact">
         <h2 class="section-title">Let's Connect!</h2>
@@ -722,26 +719,7 @@
         </div>
     </section>
 
-    <!-- Modals -->
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>E-commerce Platform</h2>
-            <p>Detailed description of the project.</p>
-        </div>
-    </div>
-
     <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
         // Theme toggle with localStorage
         const themeToggle = document.getElementById('theme-toggle');
         const setTheme = (isDark) => {
@@ -757,52 +735,6 @@
         themeToggle.addEventListener('click', () => {
             setTheme(!document.body.classList.contains('dark-mode'));
         });
-
-        // Modal functionality
-        const modals = document.querySelectorAll('.modal');
-        const projectCards = document.querySelectorAll('.project-card');
-        const closeModals = document.querySelectorAll('.close-modal');
-
-        projectCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const modalId = card.dataset.modal;
-                document.getElementById(modalId).style.display = 'flex';
-            });
-        });
-
-        closeModals.forEach(close => {
-            close.addEventListener('click', () => {
-                modals.forEach(modal => modal.style.display = 'none');
-            });
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                modals.forEach(modal => modal.style.display = 'none');
-            }
-        });
-
-        // Loading animation
-        window.addEventListener('load', () => {
-            document.querySelector('.loading').style.display = 'none';
-        });
-
-        // Intersection Observer for animations
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        });
-
-        document.querySelectorAll('.project-card, .skill-item, .blog-card, .testimonial-card').forEach((el) => {
-            el.style.opacity = 0;
-            el.style.transform = 'translateY(20px)';
-            observer.observe(el);
-        });
-
 
         // Mobile menu functionality
         const hamburger = document.querySelector('.hamburger');
@@ -833,6 +765,9 @@
             }
         });
 
+        // Initialize EmailJS
+        emailjs.init("bQiL2UmZaYkjKeZMd");
+
         // GitHub Projects Loader
         async function loadGitHubProjects() {
             try {
@@ -841,10 +776,10 @@
                 const repos = await response.json();
 
                 const projectsContainer = document.getElementById('github-projects');
-                projectsContainer.innerHTML = ''; // Clear loading message
+                projectsContainer.innerHTML = '';
 
                 repos.forEach(repo => {
-                    if (!repo.fork) { // Exclure les forks
+                    if (!repo.fork) {
                         const card = document.createElement('div');
                         card.className = 'project-card';
 
@@ -902,53 +837,47 @@
             return colors[language] || '#666';
         }
 
+        // Handle contact form submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        
-        // Initialize EmailJS
-    emailjs.init("bQiL2UmZaYkjKeZMd");
+            // Get the submit button
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            
+            // Disable button and show loading state
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-    // Handle contact form submission
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
-        e.preventDefault();
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
 
-        // Get the submit button
-        const submitButton = this.querySelector('button[type="submit"]');
-        const originalText = submitButton.textContent;
-        
-        // Disable button and show loading state
-        submitButton.disabled = true;
-        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            // Prepare template parameters
+            const templateParams = {
+                from_name: name,
+                from_email: email,
+                message: message,
+                to_name: 'Liantsoa Fanantenana'
+            };
 
-        // Get form values
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-
-        // Prepare template parameters
-        const templateParams = {
-            from_name: name,
-            from_email: email,
-            message: message,
-            to_name: 'Liantsoa Fanantenana'
-        };
-
-        // Send email
-        emailjs.send('service_h6w8lfk', 'template_uw8kzlh', templateParams)
-            .then(function() {
-                alert('Message sent successfully!');
-                document.getElementById('contact-form').reset();
-            })
-            .catch(function(error) {
-                console.error('Failed to send message:', error);
-                alert('Failed to send message. Please try again later.');
-            })
-            .finally(function() {
-                // Restore button state
-                submitButton.disabled = false;
-                submitButton.textContent = originalText;
-            });
-    });
-
+            // Send email
+            emailjs.send('service_h6w8lfk', 'template_uw8kzlh', templateParams)
+                .then(function() {
+                    alert('Message sent successfully!');
+                    document.getElementById('contact-form').reset();
+                })
+                .catch(function(error) {
+                    console.error('Failed to send message:', error);
+                    alert('Failed to send message. Please try again later.');
+                })
+                .finally(function() {
+                    // Restore button state
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalText;
+                });
+        });
 
         // Charger les projets au chargement de la page
         window.addEventListener('load', loadGitHubProjects);
